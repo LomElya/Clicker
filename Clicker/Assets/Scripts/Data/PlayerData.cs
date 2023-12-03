@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class PlayerData
 {
-    private int _idSelectedClickableItem;
-
     private List<ItemData> _itemData;
 
     private int _money;
@@ -15,9 +13,7 @@ public class PlayerData
 
     public PlayerData()
     {
-        _money = 10000;
-
-        IDdSelectedClickableItem = 0;
+        _money = 3000;
 
         _level = new LevelData();
 
@@ -25,21 +21,22 @@ public class PlayerData
         _itemData = new List<ItemData>() { new ItemData(type) };
         //_itemData = new List<ItemData>() { };
 
-        type = ItemType.AutoClick;
+        /*  type = ItemType.AutoClick;
+         _itemData.Add(new ItemData(type)); */
+
+        type = ItemType.Clickable;
         _itemData.Add(new ItemData(type));
     }
 
     [JsonConstructor]
-    public PlayerData(int money, int idSelectedClickableItem,
-       List<ItemData> itemsData, LevelData level)
+    public PlayerData(int money,
+       List<ItemData> itemData, LevelData level)
     {
         Money = money;
 
-        IDdSelectedClickableItem = idSelectedClickableItem;
-
         _level = level;
 
-        _itemData = itemsData;
+        _itemData = itemData;
     }
 
     public int Money
@@ -55,20 +52,9 @@ public class PlayerData
         }
     }
 
-    public int IDdSelectedClickableItem
-    {
-        get => _idSelectedClickableItem;
-
-        set
-        {
-            if (value < 0)
-                throw new ArgumentOutOfRangeException(nameof(value));
-
-            _idSelectedClickableItem = value;
-        }
-    }
-
     public IEnumerable<ItemData> ItemData => _itemData;
+
+    public LevelData Level => _level;
 
     public int GetCurrentLevel() =>
         _level.CurrentLevel;
@@ -92,19 +78,54 @@ public class PlayerData
         return item.Count;
     }
 
-    public int CountItem(ItemType itemType)
+    public int GetCurrentClickableItem()
     {
-        var item = _itemData.Find(type => type.TypeItem == itemType);
+
+        ItemData item = _itemData.Find(type => type.TypeItem == ItemType.Clickable);
+
+        if (item == null)
+            return 0;
+
+        return item.CurrentID;
+    }
+
+    public int ChangeItemID(ItemType itemType)
+    {
+        ItemData item = _itemData.Find(type => type.TypeItem == itemType);
 
         if (!_itemData.Contains(item))
-            throw new ArgumentException(nameof(item));
+            return 0;
 
-        return item.AddItem();
+        return item.ChangeItem();
+    }
+
+    public int CountItem(ItemType itemType, int addCount)
+    {
+        ItemData item = _itemData.Find(type => type.TypeItem == itemType);
+
+        if (!_itemData.Contains(item))
+        {
+            _itemData.Add(new ItemData(itemType));
+            int count = CountItem(itemType, 1);
+            return count;
+        }
+
+        return item.AddItem(addCount);
+    }
+
+    public int CurrentIDItem(ItemType itemType)
+    {
+        ItemData item = _itemData.Find(type => type.TypeItem == itemType);
+
+        if (!_itemData.Contains(item))
+            return -1;
+
+        return item.CurrentID;
     }
 
     public int QuantityItem(ItemType itemType)
     {
-        var item = _itemData.Find(type => type.TypeItem == itemType);
+        ItemData item = _itemData.Find(type => type.TypeItem == itemType);
 
         if (!_itemData.Contains(item))
             return 0;
@@ -112,26 +133,18 @@ public class PlayerData
         return item.Count;
     }
 
-    public void UnlockItem(ItemType itemType)
+    public bool IsOpenItem(ItemType itemType)
     {
-        var item = _itemData.Find(type => type.TypeItem == itemType);
-
-        if (_itemData.Contains(item))
-            throw new ArgumentException(nameof(itemType));
-
-        _itemData.Add(new ItemData(itemType));
-        //item.AddItem();
-    }
-
-    public bool OppenedItem(ItemType itemType)
-    {
-        var item = _itemData.Find(type => type.TypeItem == itemType);
+        ItemData item = _itemData.Find(type => type.TypeItem == itemType);
 
         if (!_itemData.Contains(item))
             return false;
 
         return true;
     }
+
+    public void OpenItem(ItemType itemType) =>
+        _itemData.Add(new ItemData(itemType));
 }
 
 

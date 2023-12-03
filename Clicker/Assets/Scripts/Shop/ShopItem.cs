@@ -1,19 +1,17 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ShopItem", menuName = "Item/ShopItem")]
-public class ShopItem : ScriptableObject
+public abstract class ShopItem : ScriptableObject
 {
-    [field: SerializeField] public string Name { get; private set; }
     [field: SerializeField] public string Description { get; private set; }
     [field: SerializeField] public ItemType TypeItem { get; private set; }
 
-    [SerializeField] private List<ShopItemConfig> _shopItemConfig;
+    public abstract string Name { get; }
 
-    public IEnumerable<ShopItemConfig> ShopItemConfig => _shopItemConfig;
+    public abstract IEnumerable<ShopItemConfig> ShopItemConfig { get; }
 
-    public int MaxCount => _shopItemConfig.Count;
+    public abstract int AddCount { get; }
+    public abstract int MaxCount { get; }
 
-    public ShopItemConfig Get(int id) => _shopItemConfig.FirstOrDefault(x => x.ID == id);
+    public abstract ShopItemConfig Get(int id);
 }

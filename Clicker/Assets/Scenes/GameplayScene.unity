@@ -609,8 +609,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: SHOP
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: eb989dba028136540ae129e7a568f97f, type: 2}
-  m_sharedMaterial: {fileID: -7417244239111891989, guid: eb989dba028136540ae129e7a568f97f,
+  m_fontAsset: {fileID: 11400000, guid: 8088871b2308a634680e0df555133813, type: 2}
+  m_sharedMaterial: {fileID: 1108214203457933281, guid: 8088871b2308a634680e0df555133813,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1337,6 +1337,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1038317155}
   - component: {fileID: 1038317156}
+  - component: {fileID: 1038317157}
   m_Layer: 5
   m_Name: ClickablePanel
   m_TagString: Untagged
@@ -1357,6 +1358,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 834630217}
+  - {fileID: 1594893572}
   m_Father: {fileID: 737994119}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.535, y: 0.21744446}
@@ -1377,6 +1379,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _levelDataConfig: {fileID: 11400000, guid: 470635c01169ed349864d0f2e6443cf8, type: 2}
+--- !u!114 &1038317157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1038317154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 638ffada949c9c546bd2c1823630153c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _textPrefab: {fileID: 7932355456770003712, guid: d902b33c97e9e6747a720a6472f0e786,
+    type: 3}
+  <SpawnPoint>k__BackingField: {fileID: 1594893572}
+  <MaxTime>k__BackingField: 1
+  _minOffset: 100
+  _maxOffset: -100
 --- !u!1 &1073078764
 GameObject:
   m_ObjectHideFlags: 0
@@ -1595,8 +1615,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: eb989dba028136540ae129e7a568f97f, type: 2}
-  m_sharedMaterial: {fileID: -7417244239111891989, guid: eb989dba028136540ae129e7a568f97f,
+  m_fontAsset: {fileID: 11400000, guid: 8088871b2308a634680e0df555133813, type: 2}
+  m_sharedMaterial: {fileID: 1108214203457933281, guid: 8088871b2308a634680e0df555133813,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1671,6 +1691,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1562490223}
   m_CullTransparentMesh: 1
+--- !u!1 &1594893571
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1594893572}
+  m_Layer: 5
+  m_Name: IncomeSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1594893572
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594893571}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1038317155}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1596264289
 GameObject:
   m_ObjectHideFlags: 0
@@ -1730,8 +1785,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Per second: 1'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8088871b2308a634680e0df555133813, type: 2}
+  m_sharedMaterial: {fileID: 1108214203457933281, guid: 8088871b2308a634680e0df555133813,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1755,7 +1811,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 48.45
+  m_fontSize: 46.7
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1855,7 +1911,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _value: {fileID: 1596264291}
-  _template: 'Per second: {0}'
+  _template: 'DPS: {0}'
 --- !u!224 &1828783579 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6353060280430867891, guid: fa17284efedff1b4ea286250e95b0c50,

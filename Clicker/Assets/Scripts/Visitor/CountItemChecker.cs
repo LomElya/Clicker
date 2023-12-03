@@ -8,7 +8,8 @@ public class CountItemChecker : IVisitor<ShopItem>
     public int Count { get; private set; }
 
     [Inject]
-    public CountItemChecker(IPersistentData persistentData) => _persistentData = persistentData;
+    public CountItemChecker(IPersistentData persistentData) =>
+        _persistentData = persistentData;
 
     public void Visit(ShopItem shopItem) =>
         Count = _persistentData.PlayerData.QuantityItem(shopItem.TypeItem);

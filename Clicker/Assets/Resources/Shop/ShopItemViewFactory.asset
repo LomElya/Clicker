@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5fecd735c1248f468b2a65ffaecb721, type: 3}
   m_Name: ShopItemViewFactory
   m_EditorClassIdentifier: 
-  _cursorItemPrefab: {fileID: -4133693838051533492, guid: af792aa9739a27845833222105a73869,
+  _cursorShopItemPrefab: {fileID: -4133693838051533492, guid: af792aa9739a27845833222105a73869,
     type: 3}
-  _autoClickItemPrefab: {fileID: 3688572444564745183, guid: 2caa507837f6a4b4fae090d6c0f2dd9c,
+  _autoClickShopItemPrefab: {fileID: 3688572444564745183, guid: 2caa507837f6a4b4fae090d6c0f2dd9c,
+    type: 3}
+  _itemShopItemPrefab: {fileID: 8074860808780296737, guid: aa8a89916ad33b44ea858735244560aa,
     type: 3}

@@ -34,11 +34,13 @@ public class GlobalInstaller : MonoInstaller
 
     private void BindVisitor()
     {
-        Container.BindInterfacesAndSelfTo<SelectedItemChecker>().AsSingle();
-
         Container.BindInterfacesAndSelfTo<CountItemChecker>().AsSingle();
         Container.BindInterfacesAndSelfTo<CountItemVisitor>().AsSingle();
-        Container.BindInterfacesAndSelfTo<SelectItem>().AsSingle();
+        Container.BindInterfacesAndSelfTo<ChangeItemVisitor>().AsSingle();
+        Container.BindInterfacesAndSelfTo<CurrentItemIDChecker>().AsSingle();
+
+        Container.BindInterfacesAndSelfTo<UnlockerItemVisitor>().AsSingle();
+        Container.BindInterfacesAndSelfTo<OpenItemChecker>().AsSingle();
 
         Container.BindInterfacesAndSelfTo<CurrentLevelChecker>().AsSingle();
     }

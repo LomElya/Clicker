@@ -7,7 +7,7 @@ public class IncomeView : MonoBehaviour
     [SerializeField] private TMP_Text _value;
     [SerializeField] private string _template;
 
-    private int _currentIncome = 0;
+    private int _currentIncome;
 
     private ClickableItemView _clickableItemView;
 
@@ -27,6 +27,8 @@ public class IncomeView : MonoBehaviour
 
         InvokeRepeating(nameof(PayIncome), 1f, 1f);
         _income.IncomeChanged += UpdateValue;
+
+
     }
 
     private void OnDestroy() => _income.IncomeChanged -= UpdateValue;
@@ -37,6 +39,11 @@ public class IncomeView : MonoBehaviour
         _value.text = string.Format(_template, _currentIncome);
     }
 
-    private void PayIncome() =>
+    private void PayIncome()
+    {
+        if (_currentIncome <= 0)
+            return;
+
         _wallet.AddCoin(_currentIncome);
+    }
 }

@@ -15,14 +15,18 @@ public class ShopPanel : MonoBehaviour
     private Level _level;
 
     private CountItemChecker _countItemChecker;
+    private CurrentItemIDChecker _currentItemIDChecker;
+    private OpenItemChecker _openItemChecker;
 
     [Inject]
     public void Init(Level level,
-        CountItemChecker countItemChecker)
+        CountItemChecker countItemChecker, CurrentItemIDChecker currentItemIDChecker, OpenItemChecker openItemChecker)
     {
         _level = level;
 
         _countItemChecker = countItemChecker;
+        _currentItemIDChecker = currentItemIDChecker;
+        _openItemChecker = openItemChecker;
     }
 
     public void Show(IEnumerable<ShopItem> items)
@@ -33,64 +37,44 @@ public class ShopPanel : MonoBehaviour
         {
             ShopItemtView spawnedItem = _shopObjectViewFactory.Get(item, _itemsParent);
 
+            _openItemChecker.Visit(spawnedItem.Item);
+
             _countItemChecker.Visit(spawnedItem.Item);
+            _currentItemIDChecker.Visit(spawnedItem.Item);
 
             spawnedItem.SetCount(_countItemChecker.Count);
 
-            spawnedItem.Click += OnItemViewClick;
+            spawnedItem.ChangeItem(_currentItemIDChecker.ID);
 
-            if (_level.GetCurrentLevel() >= spawnedItem.OpenAtLevel)
-            {
-                spawnedItem.UnLock();
-            }
-            else
-            {
-                spawnedItem.Lock();
-            }
+            LockedItem(spawnedItem);
+
+            spawnedItem.Click += OnItemViewClick;
 
             _shopItems.Add(spawnedItem);
         }
     }
 
-    public void Select(ShopItemtView itemView)
-    {
-        //Для скрытия кнопки "куплено/Boughh" всех кроме выбранно
-        /*   foreach (var item in _shopItems)
-              item.UnSelect(); */
-
-        //itemView.Select();
-    }
-
     public void ChangeItems()
     {
         foreach (var item in _shopItems)
-        {
-            if (_level.GetCurrentLevel() >= item.OpenAtLevel || item.IsMaxCount)
-                item.UnLock();
-            else
-                item.Lock();
-        }
+            LockedItem(item);
     }
 
     private void OnItemViewClick(ShopItemtView item)
     {
-        Highlight(item);
-
         if (item.IsLock || item.IsMaxCount)
             return;
 
         ItemViewClicked?.Invoke(item);
     }
 
-    private void Highlight(ShopItemtView shopObjectView)
+    private void LockedItem(ShopItemtView item)
     {
-        /*  foreach (var item in _shopItems)
-             item.UnHighlight();
-
-         shopObjectView.Highlight(); */
+        if (item.IsMaxCount || _level.GetCurrentLevel() >= item.OpenAtLevel)
+            item.UnLock();
+        else
+            item.Lock();
     }
-
-
 
     private void Clear()
     {

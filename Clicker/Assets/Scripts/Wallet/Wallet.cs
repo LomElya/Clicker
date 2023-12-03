@@ -4,6 +4,7 @@ using Zenject;
 public class Wallet
 {
     public event Action<int> CoinsChanged;
+    public event Action<int> AddCoins;
 
     private IPersistentData _persistentData;
 
@@ -16,8 +17,12 @@ public class Wallet
         if (coins < 0)
             throw new ArgumentOutOfRangeException(nameof(coins));
 
+        if (coins <= 0)
+            return;
+
         _persistentData.PlayerData.Money += coins;
 
+        AddCoins?.Invoke(coins);
         CoinsChanged?.Invoke(_persistentData.PlayerData.Money);
     }
 
